@@ -1,0 +1,22 @@
+<div class="navbar">
+
+  <div class="container">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <a href="javascript:;" (click)="exibirMenu = !exibirMenu">
+          <i class="pi pi-align-justify"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <ul class= "navbar-menu" [hidden]="!exibirMenu">
+    <li class="navbar-usuario">usuario</li>
+    <li class="navbar-item" routerLinkActive="ativo"><a routerLink="dashboard">Dashboard</a></li>
+    <li class="navbar-item" routerLinkActive="ativo"><a routerLink="lancamentos">Lançamentos</a></li>
+    <li class="navbar-item" routerLinkActive="ativo"><a routerLink="categorias">Categorias</a></li>
+    <li class="navbar-item" routerLinkActive="ativo"><a routerLink="pessoas">Pessoas</a></li>
+    <li class="navbar-item" ><a >Logout</a></li>
+  </ul>
+
+</div>
