@@ -1,1 +1,17 @@
+<!-- área de para apresentação de barra superior do menu-->
 <app-header></app-header>
+
+<!-- Área para apresentação das páginas da aplicação-->
+<router-outlet></router-outlet>
+
+<!-- Área para apresentação de mensem de confirmação -->
+<p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmacao>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Sim"
+      (click)="confirmacao.accept()">
+    </button>
+    <button type="button" pButton icon="pi pi-times" label="Não"
+      (click)="confirmacao.reject()">
+    </button>
+  </p-footer>
+</p-confirmDialog>

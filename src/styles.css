@@ -12,3 +12,73 @@
     margin: 0 auto;
   }
 }
+
+
+/* CSS padrão das telas de pesquisas */
+.containerInterno {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px 5px 0 0;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.barTitle {
+  padding: 10px;
+  font-size: 2em;
+  background-color: var(--blue-400);
+  border-radius: 5px 5px 0 0;
+}
+
+.formDados {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.formDados input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: var(--blue-50);
+  font-weight: bold;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  font-weight: bold;
+}
+
+.p-datatable .p-datatable-tbody > tr > td.col-id {
+  width: 60px;
+  text-align: right;
+}
+
+.p-datatable .p-datatable-tbody > tr > td.col-opcoes {
+  width: 130px;
+  text-align: center;
+}
+
+.p-datatable .p-datatable-tbody > tr > td.col-datas {
+  width: 130px;
+  text-align: center;
+}
+
+.p-datatable .p-datatable-tbody > tr > td.col-valores {
+  width: 130px;
+  text-align: right;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: var(--blue-600);
+}
+
+.btn {
+  margin-right: 5px !important;
+  margin-left: 5px;
+}
