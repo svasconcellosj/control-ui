@@ -10,13 +10,17 @@ import { AppComponent } from './app.component';
 import { CategoriaPesquisaComponent } from './categoria/categoria-pesquisa/categoria-pesquisa.component';
 import { HeaderComponent } from './header/header.component';
 import { PrimengImportsModule } from './shared/primeng-imports/primeng-imports.module';
+import { CategoriaCadastroComponent } from './categoria/categoria-cadastro/categoria-cadastro.component';
+import { MessageComponent } from './shared/message/message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
     HeaderComponent,
-    CategoriaPesquisaComponent
+    CategoriaPesquisaComponent,
+    CategoriaCadastroComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

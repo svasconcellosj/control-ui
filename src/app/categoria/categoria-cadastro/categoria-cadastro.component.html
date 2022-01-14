@@ -1,0 +1,38 @@
+<div class="container containerInterno">
+
+  <div class="grid">
+    <div class="col-12">
+      <h1 class="barTitle">{{ editandoCategoria ? "Edição de " : "Nova "}} Categoria</h1>
+    </div>
+  </div>
+
+  <form #categoriaForm="ngForm" class="formDados" (ngSubmit)="salvaCategoria(categoriaForm)" (keyup.enter)="salvaCategoria(categoriaForm)" autocomplete="off">
+    <div class="grid">
+      <div class="col-12 p-fluid">
+        <label>Descrição</label>
+        <input type="text" pInputText name="descricao" [(ngModel)]="categoriaModel.descricao" #descricao="ngModel" required minlength="5"
+          aria-describedby="descricao-error" pTooltip="Descrição da categoria" tooltipPosition="top" placeholder="Digite uma descrição para a categoria" autofocus />
+        <app-message [control]="descricao.control" error="required" text="Informe uma categoria"></app-message>
+        <app-message [control]="descricao.control" error="minlength" text="Descrição deve ter no mínimo 5 caracters"></app-message>
+      </div>
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Tipo</label>
+        <p-dropdown [options]="tipoCategoria" placeholder="Selecione..." name="tipo" [required]="true"
+          [(ngModel)]="categoriaModel.tipo" #tiposCategoria="ngModel"
+          pTooltip="Tipo da categoria" tooltipPosition="top" ></p-dropdown>
+      </div>
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Status</label>
+        <p-dropdown [options]="statusCategoria" placeholder="Selecione..." name="status" [required]="true"
+          [(ngModel)]="categoriaModel.status" #status="ngModel"
+          pTooltip="Status da categoria" tooltipPosition="top" ></p-dropdown>
+      </div>
+
+      <div class="col-12">
+        <button pButton class="btn" type="submit" label="Salvar" [disabled]="!categoriaForm.valid"></button>
+        <button pButton class="btn" type="button" (click)="novaCategoria(categoriaForm)" [disabled]="!categoriaForm.dirty" label="Novo"></button>
+        <a pButton routerLink="/categorias">Cancela/Volta para Pesquisa</a>
+      </div>
+    </div>
+  </form>
+</div>

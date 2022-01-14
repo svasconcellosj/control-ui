@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { TieredMenuModule } from 'primeng/tieredmenu';
 import { CalendarModule } from 'primeng/calendar';
+import { ChartModule } from 'primeng/chart';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -16,26 +16,26 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import {MessagesModule} from 'primeng/messages';
 
 @NgModule({
   exports: [
-    ToolbarModule,
     ButtonModule,
-    TieredMenuModule,
-    CalendarModule,
-    ConfirmDialogModule,
-    DropdownModule,
-    InputMaskModule,
-    InputNumberModule,
     InputTextModule,
-    InputTextareaModule,
-    PanelModule,
-    ProgressSpinnerModule,
-    SelectButtonModule,
     TableModule,
+    TooltipModule,
+    ProgressSpinnerModule,
     ToastModule,
-    TooltipModule
+    ConfirmDialogModule,
+    InputMaskModule,
+    CalendarModule,
+    InputTextareaModule,
+    SelectButtonModule,
+    DropdownModule,
+    InputNumberModule,
+    PanelModule,
+    ChartModule,
+    MessagesModule
   ],
   providers: [
     MessageService,

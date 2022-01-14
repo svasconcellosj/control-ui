@@ -21,7 +21,7 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) {
     this.categoriasUrl = `${environment.apiUrl}/categorias`;
-  }
+}
 
   pesquisar(filtro: CategoriaFiltro): Promise<any> {
 

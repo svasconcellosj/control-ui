@@ -10,7 +10,8 @@
       <div class="col-12 p-fluid">
         <label>Descrição</label>
         <!-- tem q colocar formsModule no ap.module-->
-        <input type="text" pInputText name="descricao" [(ngModel)]="filtro.descricao" />
+        <input type="text" pInputText name="descricao" [(ngModel)]="filtro.descricao" pTooltip="Entre com a categoria" tooltipPosition="top"
+            onfocus="this.select()" placeholder="Digite parte da descrição ou deixe em branco para todos"/>
       </div>
       <div class="col-12">
         <p-button class="btn" type="submit" label="Pesquisar"></p-button>
@@ -22,14 +23,16 @@
 
   <div class="grid">
     <div class="col-12">
-      <!-- tem q colocar rows senao nao pega os dados-->
+      <!-- tem q colocar rows, senao nao pega os dados-->
       <p-table [value]="categoria" [paginator]="true" [responsive]="true"
                [rows]="filtro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros"
-               (onLazyLoad)="aoMudarPagina($event)" #gridTabela>
+               (onLazyLoad)="aoMudarPagina($event)" #gridTabela
+               (sortFunction)="customSort($event)" [customSort]="true">
         <ng-template pTemplate="header">
           <tr>
             <th>ID</th>
-            <th>Descrição</th>
+            <th pSortableColumn="descricao">Descrição<p-sortIcon field="descricao"></p-sortIcon></th>
+            <th>Tipo</th>
             <th>Status</th>
             <th>opções</th>
           </tr>
@@ -37,8 +40,9 @@
         <ng-template pTemplate="body" let-categoria>
           <tr>
             <td class="col-id">{{ categoria.id }}</td>
-            <td>{{ categoria.descricao }}</td>
-            <td>{{ categoria.status }}</td>
+            <td class="td-txt">{{ categoria.descricao }}</td>
+            <td class="td-txt">{{ categoria.tipo }}</td>
+            <td class="col-id">{{ categoria.status ? 'Ativo' : 'Inativo' }}</td>
             <td class="col-opcoes">
               <a class="btn" [routerLink]="[ '/categorias', categoria.id ]" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" ></a>
               <button (click)="confirmarExclusao(categoria)" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
