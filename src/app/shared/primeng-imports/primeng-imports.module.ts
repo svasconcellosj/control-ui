@@ -1,23 +1,45 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { CalendarModule } from 'primeng/calendar';
+import { ChartModule } from 'primeng/chart';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { PanelModule } from 'primeng/panel';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
+import {MessagesModule} from 'primeng/messages';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-
-    ToolbarModule,
-    ButtonModule,
-    TieredMenuModule
-  ],
   exports: [
-    ToolbarModule,
     ButtonModule,
-    TieredMenuModule
+    InputTextModule,
+    TableModule,
+    TooltipModule,
+    ProgressSpinnerModule,
+    ToastModule,
+    ConfirmDialogModule,
+    InputMaskModule,
+    CalendarModule,
+    InputTextareaModule,
+    SelectButtonModule,
+    DropdownModule,
+    InputNumberModule,
+    PanelModule,
+    ChartModule,
+    MessagesModule
+  ],
+  providers: [
+    MessageService,
+    ConfirmationService
   ]
 })
 export class PrimengImportsModule { }
