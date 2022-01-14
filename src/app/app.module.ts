@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { PrimengImportsModule } from './shared/primeng-imports/primeng-imports.module';
 import { CategoriaCadastroComponent } from './categoria/categoria-cadastro/categoria-cadastro.component';
 import { MessageComponent } from './shared/message/message.component';
+import { PlantaPesquisaComponent } from './planta/planta-pesquisa/planta-pesquisa.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MessageComponent } from './shared/message/message.component';
     HeaderComponent,
     CategoriaPesquisaComponent,
     CategoriaCadastroComponent,
-    MessageComponent
+    MessageComponent,
+    PlantaPesquisaComponent
   ],
   imports: [
     BrowserModule,
