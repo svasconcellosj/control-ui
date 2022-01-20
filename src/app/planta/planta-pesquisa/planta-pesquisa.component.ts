@@ -58,7 +58,7 @@ export class PlantaPesquisaComponent implements OnInit {
 
   confirmarExclusao(plantaModel: any): void {
     this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir a planta <strong>' + plantaModel.descricao + '</strong> ?',
+      message: 'Tem certeza que deseja excluir a planta <strong>' + plantaModel.nome + '</strong> ?',
       accept: () => {
           this.excluiCategoria(plantaModel);
       }

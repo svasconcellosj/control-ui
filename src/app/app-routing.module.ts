@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CategoriaPesquisaComponent } from './categoria/categoria-pesquisa/categoria-pesquisa.component';
 import { PlantaPesquisaComponent } from './planta/planta-pesquisa/planta-pesquisa.component';
+import { PlantaCadastroComponent } from './planta/planta-cadastro/planta-cadastro.component';
 
 const routes: Routes = [
 
@@ -12,8 +13,8 @@ const routes: Routes = [
   { path: 'categorias/:id', component: CategoriaCadastroComponent },
 
   { path: 'plantas', component: PlantaPesquisaComponent },
-  { path: 'plantas/cadastro', component: PlantaPesquisaComponent },
-  { path: 'plantas/:id', component: PlantaPesquisaComponent }
+  { path: 'plantas/cadastro', component: PlantaCadastroComponent },
+  { path: 'plantas/:id', component: PlantaCadastroComponent }
 
 ];
 

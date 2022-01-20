@@ -1,10 +1,11 @@
+import { PlantaModel } from './planta-model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 export class FiltroPlanta {
-  descricao?: string;
+  nome?: string;
 
   pagina: number = 0;
   itensPorPagina: number = 5;
@@ -26,8 +27,8 @@ export class PlantaService {
       .set('page', filtro.pagina.toString())
       .set('size', filtro.itensPorPagina.toString());
 
-    if ( filtro.descricao ) {
-      params = params.set('descricao', filtro.descricao);
+    if ( filtro.nome ) {
+      params = params.set('nome', filtro.nome);
     }
 
     return firstValueFrom( this.http.get(`${this.plantasUrl}`, { params } ))
@@ -40,6 +41,18 @@ export class PlantaService {
 
   exclui(id: number): Promise<void> {
     return firstValueFrom( this.http.delete<void>(`${this.plantasUrl}/${id}`) );
+  }
+
+  buscaId(id: number ): Promise<PlantaModel> {
+    return firstValueFrom( this.http.get<PlantaModel>(`${this.plantasUrl}/${id}`) );
+  }
+
+  grava(plantaModel: PlantaModel) : Promise<PlantaModel> {
+    return firstValueFrom( this.http.post<PlantaModel>(this.plantasUrl, plantaModel ) );
+  }
+
+  altera(plantaModel : PlantaModel ) : Promise<PlantaModel> {
+    return firstValueFrom( this.http.put<PlantaModel>(`${this.plantasUrl}/${plantaModel.id}`, plantaModel) );
   }
 
 }

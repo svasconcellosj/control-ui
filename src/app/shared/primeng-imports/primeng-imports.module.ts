@@ -8,15 +8,16 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MessagesModule } from 'primeng/messages';
 import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import {MessagesModule} from 'primeng/messages';
 
 @NgModule({
   exports: [
@@ -35,7 +36,8 @@ import {MessagesModule} from 'primeng/messages';
     InputNumberModule,
     PanelModule,
     ChartModule,
-    MessagesModule
+    MessagesModule,
+    InputSwitchModule
   ],
   providers: [
     MessageService,

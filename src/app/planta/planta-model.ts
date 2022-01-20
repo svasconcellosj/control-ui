@@ -8,7 +8,7 @@ export class PlantaModel {
   tipoPlantio?: string;
   dataPlantio?: Date;
   dataGerminacao?: Date;
-  qtdRega?: number;
+  qtdRegaSemana?: number;
   volumeRega?: number;
   observacao?: string;
 

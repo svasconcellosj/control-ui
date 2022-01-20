@@ -13,6 +13,7 @@ import { PrimengImportsModule } from './shared/primeng-imports/primeng-imports.m
 import { CategoriaCadastroComponent } from './categoria/categoria-cadastro/categoria-cadastro.component';
 import { MessageComponent } from './shared/message/message.component';
 import { PlantaPesquisaComponent } from './planta/planta-pesquisa/planta-pesquisa.component';
+import { PlantaCadastroComponent } from './planta/planta-cadastro/planta-cadastro.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PlantaPesquisaComponent } from './planta/planta-pesquisa/planta-pesquis
     CategoriaPesquisaComponent,
     CategoriaCadastroComponent,
     MessageComponent,
-    PlantaPesquisaComponent
+    PlantaPesquisaComponent,
+    PlantaCadastroComponent
   ],
   imports: [
     BrowserModule,
