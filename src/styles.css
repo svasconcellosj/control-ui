@@ -36,11 +36,6 @@
   padding: 10px;
 }
 
-.formDados input {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .p-datatable .p-datatable-thead > tr > th {
   background: var(--blue-50);
   font-weight: bold;
@@ -82,4 +77,8 @@ a:hover {
   margin-top: 15px ;
   margin-right: 5px !important;
   margin-left: 5px;
+}
+
+.inputSwitch {
+  display: block;
 }
