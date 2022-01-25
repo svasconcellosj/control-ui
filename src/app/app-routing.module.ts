@@ -1,3 +1,4 @@
+import { LancamentoPesquisaComponent } from './lancamento/lancamento-pesquisa/lancamento-pesquisa.component';
 import { CategoriaCadastroComponent } from './categoria/categoria-cadastro/categoria-cadastro.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -5,8 +6,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { CategoriaPesquisaComponent } from './categoria/categoria-pesquisa/categoria-pesquisa.component';
 import { PlantaPesquisaComponent } from './planta/planta-pesquisa/planta-pesquisa.component';
 import { PlantaCadastroComponent } from './planta/planta-cadastro/planta-cadastro.component';
+import { LancamentoCadastroComponent } from './lancamento/lancamento-cadastro/lancamento-cadastro.component';
 
 const routes: Routes = [
+
+  { path: 'lancamentos', component: LancamentoPesquisaComponent },
+  { path: 'lancamentos/cadastro', component: LancamentoCadastroComponent },
+  { path: 'lancamentos/:id', component: LancamentoCadastroComponent },
 
   { path: 'categorias', component: CategoriaPesquisaComponent },
   { path: 'categorias/cadastro', component: CategoriaCadastroComponent },
