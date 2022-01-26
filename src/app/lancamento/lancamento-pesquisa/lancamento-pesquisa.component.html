@@ -29,6 +29,7 @@
             <th>ID</th>
             <th>Descrição</th>
             <th>Pagamento</th>
+            <th>Tipo</th>
             <th>Valor</th>
             <th></th>
           </tr>
@@ -38,6 +39,7 @@
             <td class="col-id">{{ lancamento.id }}</td>
             <td >{{ lancamento.descricao }}</td>
             <td >{{ lancamento.dataPagamento | date:'dd/MM/yyyy'}}</td>
+            <td >{{ lancamento.idCategoria.tipo}}</td>
             <td >{{ lancamento.valor | number:'1.2-2'}}</td>
             <td class="col-opcoes">
               <a class="btn" [routerLink]="[ '/lancamentos', lancamento.id ]" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" ></a>
