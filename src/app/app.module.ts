@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +14,13 @@ import { CategoriaCadastroComponent } from './categoria/categoria-cadastro/categ
 import { MessageComponent } from './shared/message/message.component';
 import { PlantaPesquisaComponent } from './planta/planta-pesquisa/planta-pesquisa.component';
 import { PlantaCadastroComponent } from './planta/planta-cadastro/planta-cadastro.component';
+import { LancamentoPesquisaComponent } from './lancamento/lancamento-pesquisa/lancamento-pesquisa.component';
+import { LancamentoCadastroComponent } from './lancamento/lancamento-cadastro/lancamento-cadastro.component';
+import { ErrorHandlerService } from './shared/error-handler.service.ts.service';
+
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
   declarations: [
@@ -24,7 +31,9 @@ import { PlantaCadastroComponent } from './planta/planta-cadastro/planta-cadastr
     CategoriaCadastroComponent,
     MessageComponent,
     PlantaPesquisaComponent,
-    PlantaCadastroComponent
+    PlantaCadastroComponent,
+    LancamentoPesquisaComponent,
+    LancamentoCadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +44,12 @@ import { PlantaCadastroComponent } from './planta/planta-cadastro/planta-cadastr
 
     PrimengImportsModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR'}, /* Autera a região da página para portugues Brasil */
+    ErrorHandlerService,
+    DatePipe,
+    Title
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
