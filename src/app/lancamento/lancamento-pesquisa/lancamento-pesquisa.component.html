@@ -37,10 +37,10 @@
         <ng-template pTemplate="body" let-lancamento >
           <tr>
             <td class="col-id">{{ lancamento.id }}</td>
-            <td >{{ lancamento.descricao }}</td>
-            <td >{{ lancamento.dataPagamento | date:'dd/MM/yyyy'}}</td>
-            <td >{{ lancamento.idCategoria.tipo}}</td>
-            <td >{{ lancamento.valor | number:'1.2-2'}}</td>
+            <td class="col-txt">{{ lancamento.descricao }}</td>
+            <td class="col-datas">{{ lancamento.dataPagamento | date:'dd/MM/yyyy'}}</td>
+            <td class="col-txt">{{ lancamento.idCategoria.tipo}}</td>
+            <td class="col-valores">{{ lancamento.valor | number:'1.2-2'}}</td>
             <td class="col-opcoes">
               <a class="btn" [routerLink]="[ '/lancamentos', lancamento.id ]" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" ></a>
               <button (click)="confirmarExclusao(lancamento)" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>

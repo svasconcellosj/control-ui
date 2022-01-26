@@ -6,9 +6,9 @@
     </div>
   </div>
 
-  <form #lancamentoForm="ngForm" class="formDados" (ngSubmit)="salvaLancamento(lancamentoForm)" autocomplete="off">
+  <form #lancamentoForm="ngForm" class="formDados" (ngSubmit)="salvaLancamento(lancamentoForm)">
     <div class="grid">
-      <div class="col-12 md:col-3 p-fluid"> {{lancamentoModel.idCategoria.tipo}}
+      <div class="col-12 md:col-3 p-fluid">
         <p-selectButton [options]="tipos" #tipo="ngModel" name="tipo" [(ngModel)]="lancamentoModel.idCategoria.tipo"  ></p-selectButton>
       </div>
     </div>
