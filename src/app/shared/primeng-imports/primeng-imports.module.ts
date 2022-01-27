@@ -19,6 +19,8 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 
+import {SidebarModule} from 'primeng/sidebar';
+
 @NgModule({
   exports: [
     ButtonModule,
@@ -37,7 +39,8 @@ import { TooltipModule } from 'primeng/tooltip';
     PanelModule,
     ChartModule,
     MessagesModule,
-    InputSwitchModule
+    InputSwitchModule,
+    SidebarModule
   ],
   providers: [
     MessageService,

@@ -1,11 +1,6 @@
 .navbar {
-  padding: 10px;
+  padding: 5px;
   background-color: var(--blue-500);
-}
-
-.navbar i {
-  color: var(--blue-50);
-  font-size: 1.5em;
 }
 
 .navbar-menu {
@@ -14,7 +9,6 @@
   right: 0;
   width: 210px;
   position: fixed;
-  background-color: var(--blue-900);
 
   list-style: none;
   color: var(--blue-50);
