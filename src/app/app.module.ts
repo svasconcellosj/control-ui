@@ -20,6 +20,7 @@ import { ErrorHandlerService } from './shared/error-handler.service.ts.service';
 
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
@@ -33,7 +34,8 @@ registerLocaleData(localePt, 'pt-BR');
     PlantaPesquisaComponent,
     PlantaCadastroComponent,
     LancamentoPesquisaComponent,
-    LancamentoCadastroComponent
+    LancamentoCadastroComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

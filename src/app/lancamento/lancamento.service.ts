@@ -24,7 +24,6 @@ export class LancamentoService {
   }
 
   pesquisa(filtro: LancamentoFiltro): Promise<any> {
-
     let params = new HttpParams()
         .set('page', filtro.pagina)
         .set('size', filtro.itensPorPagina);
