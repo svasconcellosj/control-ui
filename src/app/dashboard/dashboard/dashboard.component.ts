@@ -1,5 +1,6 @@
 import { DashboardService } from './../dashboard.service';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,10 +13,12 @@ export class DashboardComponent implements OnInit {
   barChartData: any;
 
   constructor(
-    private dashboardService : DashboardService
+    private dashboardService : DashboardService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Dashboard');
     this.configurarGraficoPizza()
     this.configuraGraficoBarra()
   }

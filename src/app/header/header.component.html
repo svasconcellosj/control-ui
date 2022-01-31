@@ -2,31 +2,18 @@
 
   <div class="container">
     <div class="p-grid">
-      <!-- <div class="p-col-12">
-        <a href="javascript:;" (click)="exibirMenu = !exibirMenu">
-          <i class="pi pi-align-justify"></i>
-        </a>
-      </div> -->
       <div class="p-col-12">
         <p-button type="button" (click)="exibirMenu1 = true" icon="pi pi-align-justify"></p-button>
       </div>
     </div>
   </div>
 
-  <!-- <ul class= "navbar-menu" [hidden]="!exibirMenu">
-    <li class="navbar-usuario">usuario</li>
-    <li class="navbar-item" routerLinkActive="ativo"><a routerLink="dashboard">Dashboard</a></li>
-    <li class="navbar-item" routerLinkActive="ativo"><a routerLink="lancamentos">Lançamentos</a></li>
-    <li class="navbar-item" routerLinkActive="ativo"><a routerLink="categorias">Categorias</a></li>
-    <li class="navbar-item" routerLinkActive="ativo"><a routerLink="plantas">Plantas</a></li>
-    <li class="navbar-item" ><a >Logout</a></li>
-  </ul> -->
-
   <p-sidebar [(visible)]="exibirMenu1" position="right">
     <ul class= "navbar-menu" >
       <li class="navbar-usuario">usuario</li>
       <li class="navbar-item" routerLinkActive="ativo"><a routerLink="dashboard">Dashboard</a></li>
       <li class="navbar-item" routerLinkActive="ativo"><a routerLink="lancamentos">Lançamentos</a></li>
+      <li class="navbar-item" routerLinkActive="ativo"><a routerLink="contas">Contas</a></li>
       <li class="navbar-item" routerLinkActive="ativo"><a routerLink="categorias">Categorias</a></li>
       <li class="navbar-item" routerLinkActive="ativo"><a routerLink="plantas">Plantas</a></li>
       <li class="navbar-item" ><a >Logout</a></li>
