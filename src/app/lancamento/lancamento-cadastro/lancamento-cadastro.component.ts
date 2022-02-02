@@ -1,3 +1,4 @@
+import { ContaService } from './../../contas/conta.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -25,6 +26,15 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Pago', value: 'PAGO' },
     { label: 'A Pagar', value: "APAGAR" }
   ];
+  contas: any[] = [];
+  movimentos =  [
+    { label: 'Receitas', value: 'RECEITAS'},
+    { label: 'Investimentos', value: 'INVESTIMENTOS'},
+    { label: 'Fixas', value: 'FIXAS'},
+    { label: 'Variáveis', value: 'VARIAVEIS'},
+    { label: 'Extras', value: 'EXTRAS'},
+    { label: 'Adicionais', value: 'ADICIONAIS'},
+  ];
 
   constructor(
     private lancamentoService: LancamentoService,
@@ -33,7 +43,8 @@ export class LancamentoCadastroComponent implements OnInit {
     private router: Router,
     private routeActive: ActivatedRoute,
     private categoriaService: CategoriaService,
-    private title: Title
+    private title: Title,
+    private contaService: ContaService
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +55,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.atualizaTitle();
 
     this.carregaCategorias();
+    this.carregaConta();
   }
 
   atualizaTitle() {
@@ -102,6 +114,16 @@ export class LancamentoCadastroComponent implements OnInit {
         this.messageService.add({severity:'success', summary:'Alterado!', detail:'Lançamento '+lancamento.descricao+' alterado com sucesso.'});
         this.atualizaTitle();
       })
+  }
+
+  carregaConta() {
+    return this.contaService.buscaTodos()
+      .then( contas => {
+        this.contas = contas.map( (conta: any) => {
+          return { label: conta.descricao, value: conta.id };
+        });
+      })
+      .catch( erro => this.errorHendler.handler(erro) );
   }
 
 }

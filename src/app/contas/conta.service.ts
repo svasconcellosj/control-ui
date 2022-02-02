@@ -55,4 +55,9 @@ export class ContaService {
   altera(contaModel: ContaModel) : Promise<ContaModel> {
     return firstValueFrom( this.http.put<ContaModel>(`${this.contaUrl}/${contaModel.id}`, contaModel ));
   }
+
+  buscaTodos() : Promise<any> {
+    return firstValueFrom( this.http.get<ContaModel>(`${this.contaUrl}/lista`));
+  }
+
 }

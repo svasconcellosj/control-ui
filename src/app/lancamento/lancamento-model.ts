@@ -1,4 +1,5 @@
 import { CategoriaModel } from "../categoria/categoria-model";
+import { ContaModel } from "../contas/conta-model";
 
 export class LancamentoModel {
 
@@ -11,5 +12,7 @@ export class LancamentoModel {
   statusPagamento = 'A PAGAR';
   qtdRepeticao?: number;
   idCategoria = new CategoriaModel();
+  conta = new ContaModel();
+  movimento = 'RECEITAS';
 
 }
