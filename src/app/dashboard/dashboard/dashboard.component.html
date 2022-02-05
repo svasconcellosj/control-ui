@@ -7,13 +7,25 @@
 
   <div class="grid">
     <div class="col-12 md:col-4">
-      <p-panel header="Lançamentos por tipo">
-        <p-chart type="doughnut" [data]="barChartData" ></p-chart>
+      <p-panel header="Lançamentos por tipo - Mensal">
+        <p-chart type="doughnut" [data]="dataTipoMensal" ></p-chart>
       </p-panel>
     </div>
     <div class="col-12 md:col-4">
-      <p-panel header="Lançamentos por categoria">
-        <p-chart type="pie" [data]="pieChartData"></p-chart>
+      <p-panel header="Despesas por categoria - Mensal">
+        <p-chart type="pie" [data]="dataCategoriaMensal"></p-chart>
+      </p-panel>
+    </div>
+    <div class="col-12 md:col-4"></div>
+
+    <div class="col-12 md:col-4">
+      <p-panel header="Lançamentos por tipo - Anual">
+        <p-chart type="doughnut" [data]="dataTipoAnual" ></p-chart>
+      </p-panel>
+    </div>
+    <div class="col-12 md:col-4">
+      <p-panel header="Despesas por categoria - Anual">
+        <p-chart type="pie" [data]="dataCategoriaAnual"></p-chart>
       </p-panel>
     </div>
   </div>
