@@ -14,6 +14,7 @@ export class LancamentoPesquisaComponent implements OnInit {
 
   filtro = new LancamentoFiltro();
   totalRegistros = 0;
+  loading: boolean = false;
   lancamentosPesquisa: LancamentoModel[] = [];
   @ViewChild('gridTable') gridTable!: any;
 
@@ -27,15 +28,16 @@ export class LancamentoPesquisaComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Pesquisa de Laçamentos');
-    this.pesquisar();
   }
 
   pesquisar(pagina: number = 0) {
+    this.loading = true;
     this.filtro.pagina = pagina;
     this.lancamentoService.pesquisa( this.filtro )
       .then( (resultado: any) => {
         this.lancamentosPesquisa = resultado.lancamentos;
         this.totalRegistros = resultado.total;
+        this.loading = false;
       })
       .catch((error) => this.errorHandler.handler(error));
   }

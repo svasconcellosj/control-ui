@@ -16,8 +16,32 @@
         <p-chart type="pie" [data]="dataCategoriaMensal"></p-chart>
       </p-panel>
     </div>
-    <div class="col-12 md:col-4"></div>
-
+    <div class="col-12 md:col-4">
+      <p-panel header="Resumo - Mensal">
+        <div class="grid dsbResumo">
+          <div class="col-12 p-fluid">
+            <span >Receitas mês Atual: R$ <strong [style.color]="'blue'">{{ resumoReceitaMensal | number:'1.2-2'}}</strong></span>
+          </div>
+          <div class="col-12 p-fluid">
+            <span>Despesas mês Atual: R$ <strong [style.color]="'red'">{{ resumoDespesaMensal | number:'1.2-2'}}</strong></span>
+          </div>
+          <div class="col-12 p-fluid">
+            <span>Saldo mês Atual: R$ <strong [style.color]="(resumoReceitaMensal - resumoDespesaMensal) < 0 ? 'red':'blue' ">{{ (resumoReceitaMensal - resumoDespesaMensal) | number:'1.2-2'}}</strong></span>
+          </div>
+        </div>
+        <div class="grid dsbResumo">
+          <div class="col-12 p-fluid">
+            <span>Receitas mês Anterior:</span>
+          </div>
+          <div class="col-12 p-fluid">
+            <span>Despesas mês Anterior:</span>
+          </div>
+          <div class="col-12 p-fluid">
+            <span>Saldo mês Anterior:</span>
+          </div>
+        </div>
+      </p-panel>
+    </div>
     <div class="col-12 md:col-4">
       <p-panel header="Lançamentos por tipo - Anual">
         <p-chart type="doughnut" [data]="dataTipoAnual" ></p-chart>
@@ -26,6 +50,21 @@
     <div class="col-12 md:col-4">
       <p-panel header="Despesas por categoria - Anual">
         <p-chart type="pie" [data]="dataCategoriaAnual"></p-chart>
+      </p-panel>
+    </div>
+    <div class="col-12 md:col-4">
+      <p-panel header="Resumo - Anual">
+        <div class="grid dsbResumo">
+          <div class="col-12 p-fluid">
+            <span>Receitas: R$ <strong [style.color]="'blue'">{{ resumoReceitaAnual | number:'1.2-2'}}</strong></span>
+          </div>
+          <div class="col-12 p-fluid">
+            <span>Despesas: R$ <strong [style.color]="'red'">{{ resumoDespesaAnual | number:'1.2-2'}}</strong></span>
+          </div>
+          <div class="col-12 p-fluid">
+            <span>Saldo: R$ <strong [style.color]="(resumoReceitaAnual - resumoDespesaAnual) < 0 ? 'red':'blue' ">{{ (resumoReceitaAnual - resumoDespesaAnual ) | number:'1.2-2'}}</strong></span>
+          </div>
+        </div>
       </p-panel>
     </div>
   </div>

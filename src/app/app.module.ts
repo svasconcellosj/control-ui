@@ -51,7 +51,7 @@ registerLocaleData(localePt, 'pt-BR');
     PrimengImportsModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'pt-BR'}, /* Autera a região da página para portugues Brasil */
+    { provide: LOCALE_ID, useValue: 'pt-BR'}, /* Altera a região da página para portugues Brasil */
     ErrorHandlerService,
     DatePipe,
     Title

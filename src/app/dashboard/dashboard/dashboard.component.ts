@@ -21,6 +21,10 @@ export class DashboardComponent implements OnInit {
   dataTipoAnual: any;
   dataCategoriaMensal: any;
   dataCategoriaAnual: any;
+  resumoReceitaMensal = 0;
+  resumoDespesaMensal = 0;
+  resumoReceitaAnual = 0;
+  resumoDespesaAnual = 0;
 
   constructor(
     private dashboardService : DashboardService,
@@ -30,13 +34,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Dashboard');
-    this.graficoBarraTipoMensal(true);
-    this.graficoBarraTipoMensal(false);
-    this.graficoPizzaCategoriaMensal(true);
-    this.graficoPizzaCategoriaMensal(false);
+    this.GraficoBarraTipoMensal(true);
+    this.GraficoBarraTipoMensal(false);
+    this.GraficoPizzaCategoriaMensal(true);
+    this.GraficoPizzaCategoriaMensal(false);
   }
 
-  graficoPizzaCategoriaMensal(isMensal: boolean) {
+  GraficoPizzaCategoriaMensal(isMensal: boolean) {
     let dataInicio: string;
     let dataFim: string;
     if ( isMensal ) {
@@ -82,7 +86,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  graficoBarraTipoMensal(isMensal: boolean) {
+  GraficoBarraTipoMensal(isMensal: boolean) {
     let dataInicio: string;
     let dataFim: string;
     if ( isMensal ) {
@@ -97,6 +101,8 @@ export class DashboardComponent implements OnInit {
               backgroundColor: ['#0000FF','#FF0000']
             }]
           };
+          this.resumoReceitaMensal = dados[0].total;
+          this.resumoDespesaMensal = dados[1].total;
         });
     } else {
       dataInicio = `${this.dataAnualInicio}`;
@@ -110,6 +116,8 @@ export class DashboardComponent implements OnInit {
               backgroundColor: ['#0000FF','#FF0000']
             }]
           };
+          this.resumoReceitaAnual = dados[0].total;
+          this.resumoDespesaAnual = dados[1].total;
         });
     }
   }
