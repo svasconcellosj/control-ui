@@ -7,11 +7,7 @@
   </div>
 
   <form #lancamentoForm="ngForm" class="formDados" (ngSubmit)="salvaLancamento(lancamentoForm)">
-    <div class="grid">
-      <div class="col-12 md:col-3 p-fluid">
-        <p-selectButton [options]="tipos" #tipo="ngModel" name="tipo" [(ngModel)]="lancamentoModel.tipo"  ></p-selectButton>
-      </div>
-    </div>
+
     <div class="grid">
       <div class="col-12 md:col-6 p-fluid">
         <label>Conta</label>

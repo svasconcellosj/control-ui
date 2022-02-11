@@ -100,6 +100,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   gravaLancamento( form: NgForm) {
+    ( this.lancamentoModel.movimento === "RECEITAS" || this.lancamentoModel.movimento === "INVESTIMENTOS" ) ? this.lancamentoModel.tipo = "RECEITA" : this.lancamentoModel.tipo = "DESPESA";
     this.lancamentoService.grava(this.lancamentoModel)
       .then( lancamento => {
        this.messageService.add({severity:"success", summary:"Salvo!", detail:'Lançamento '+lancamento.descricao+' salvo com sucesso.'});
@@ -109,6 +110,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   alteraLancamento( form: NgForm ) {
+    ( this.lancamentoModel.movimento === "RECEITAS" || this.lancamentoModel.movimento === "INVESTIMENTOS" ) ? this.lancamentoModel.tipo = "RECEITA" : this.lancamentoModel.tipo = "DESPESA";
     this.lancamentoService.altera(this.lancamentoModel)
       .then( lancamento => {
         this.messageService.add({severity:'success', summary:'Alterado!', detail:'Lançamento '+lancamento.descricao+' alterado com sucesso.'});

@@ -27,6 +27,7 @@
           <tr>
             <th>ID</th>
             <th>Descrição</th>
+            <th>Saldo</th>
             <th></th>
           </tr>
         </ng-template>
@@ -34,6 +35,7 @@
           <tr>
             <td class="col-id">{{ conta.id }}</td>
             <td>{{ conta.descricao }}</td>
+            <td class="col-valores"><span [style.color]="conta.saldo <0 ? 'red':'blue'">{{ conta.saldo | number:'1.2-2' }}</span></td>
             <td class="col-opcoes">
                   <a class="btn" [routerLink]="[ '/contas', conta.id ]" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" ></a>
                   <button (click)="confirmarExclusao(conta)" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
