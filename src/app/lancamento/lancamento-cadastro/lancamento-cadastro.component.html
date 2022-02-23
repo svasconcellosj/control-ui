@@ -11,11 +11,13 @@
     <div class="grid">
       <div class="col-12 md:col-6 p-fluid">
         <label>Conta</label>
-        <p-dropdown class="dropDown" [options]="contas" name="conta" [(ngModel)]="lancamentoModel.conta.id" #conta="ngModel" tooltip="Conta do lançamento" tooltipPosition="top"></p-dropdown>
+        <p-dropdown (onBlur)="carregaSaldo(lancamentoModel.conta.id!)" class="dropDown" [options]="listaContas" name="conta" [(ngModel)]="lancamentoModel.conta.id" #conta="ngModel" tooltip="Conta do lançamento"
+          tooltipPosition="top" placeholder="Selecione..."></p-dropdown>
       </div>
       <div class="col-12 md:col-6 p-fluid">
         <label>Tipo</label>
-        <p-dropdown class="dropDown" [options]="movimentos" name="movimento" [(ngModel)]="lancamentoModel.movimento" #movimento="ngModel" tooltip="Conta do lançamento" tooltipPosition="top"></p-dropdown>
+        <p-dropdown class="dropDown" [options]="movimentos" name="movimento" [(ngModel)]="lancamentoModel.movimento" #movimento="ngModel" tooltip="Conta do lançamento" tooltipPosition="top"
+             [itemSize]="10" placeholder="Selecione..."></p-dropdown>
       </div>
       <div class="col-12 p-fluid">
         <label >Descrição</label>
@@ -27,12 +29,14 @@
       <div class="col-12 md:col-4 p-fluid">
         <label >Data Pagamento</label>
         <!-- dateFormat="dd/mm/yy" -->
-        <p-calendar dateFormat="yy-mm-dd" [inputStyle]="{ width: '100px' }" name="dataPagamento" [(ngModel)]="lancamentoModel.dataPagamento" #dataPagamento="ngModel"></p-calendar>
+        <p-calendar dateFormat="yy-mm-dd" [inputStyle]="{ width: '100px' }" name="dataPagamento" [(ngModel)]="lancamentoModel.dataPagamento" #dataPagamento="ngModel"
+          [required]="true"></p-calendar>
       </div>
       <div class="col-12 md:col-4 p-fluid">
         <label >Valor</label>
-        <p-inputNumber mode="currency" currency="BRL" locale="pt-BR" placeholder="0,00" allowNegative=false
-          name="valor" [(ngModel)]="lancamentoModel.valor" #valor="ngModel"></p-inputNumber>
+        <p-inputNumber (onBlur)="temSaldo(lancamentoForm)" mode="currency" currency="BRL" locale="pt-BR" placeholder="0,00" allowNegative=false
+          [required]="true" name="valor" [(ngModel)]="lancamentoModel.valor" #valor="ngModel"></p-inputNumber>
+          <app-message [control]="valor.control" error="required" text="Valor deve ser preenchido"></app-message>
       </div>
       <div class="col-12 md:col-4 p-fluid">
         <label class="inputSwitch">Status</label>
@@ -40,7 +44,7 @@
       </div>
       <div class="col-12 md:col-6 p-fluid">
         <label >Categoria</label>
-        <p-dropdown [options]="categorias" [filter]="true" placeholder="Selecione..." name="categoria"
+        <p-dropdown [options]="listaCategorias" [filter]="true" placeholder="Selecione..." name="categoria" [required]="true"
           [(ngModel)]="lancamentoModel.idCategoria.id" #categoria="ngModel"></p-dropdown>
       </div>
       <div class="col-12 md:col-6 p-fluid">
@@ -54,7 +58,7 @@
       <div class="col-12">
         <div class="col-12">
           <button pButton class="btn" type="submit" label="Salvar" [disabled]="!lancamentoForm.valid"></button>
-          <button pButton class="btn" type="button" (click)="novoLancamento(lancamentoForm)" [disabled]="!lancamentoForm.dirty" label="Novo"></button>
+          <button pButton class="btn" type="button" (click)="novoLancamento(lancamentoForm)" label="Novo"></button>
           <a pButton routerLink="/lancamentos">Cancela/Volta para Pesquisa</a>
         </div>
       </div>

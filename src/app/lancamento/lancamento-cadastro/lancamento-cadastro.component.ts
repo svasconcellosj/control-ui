@@ -1,5 +1,5 @@
 import { ContaService } from './../../contas/conta.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { CategoriaService } from 'src/app/categoria/categoria.service';
 import { ErrorHandlerService } from 'src/app/shared/error-handler.service.ts.service';
 import { LancamentoModel } from '../lancamento-model';
 import { LancamentoService } from '../lancamento.service';
+import { ContaModel } from 'src/app/contas/conta-model';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -17,7 +18,6 @@ import { LancamentoService } from '../lancamento.service';
 export class LancamentoCadastroComponent implements OnInit {
 
   lancamentoModel = new LancamentoModel();
-  categorias: any[] = [];
   tipos = [
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' }
@@ -26,14 +26,18 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Pago', value: 'PAGO' },
     { label: 'A Pagar', value: "APAGAR" }
   ];
-  contas: any[] = [];
+  listaCategorias: any[] = []; //lista de categorias
+  listaContas: any[] = [];   //lista de contas
+  contaModel = new ContaModel();
+  saldoConta: number = 0;
+  @ViewChild('valor') valor!: any;
   movimentos =  [
-    { label: 'Receitas', value: 'RECEITAS'},
-    { label: 'Investimentos', value: 'INVESTIMENTOS'},
-    { label: 'Fixas', value: 'FIXAS'},
-    { label: 'Variáveis', value: 'VARIAVEIS'},
-    { label: 'Extras', value: 'EXTRAS'},
-    { label: 'Adicionais', value: 'ADICIONAIS'},
+    { label: 'RECEITAS', value: 'RECEITAS'},
+    { label: 'INVESTIMENTOS', value: 'INVESTIMENTOS'},
+    { label: 'FIXAS', value: 'FIXAS'},
+    { label: 'VARIÁVEIS', value: 'VARIAVEIS'},
+    { label: 'EXTRAS', value: 'EXTRAS'},
+    { label: 'ADICIONAIS', value: 'ADICIONAIS'},
   ];
 
   constructor(
@@ -55,7 +59,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.atualizaTitle();
 
     this.carregaCategorias();
-    this.carregaConta();
+    this.carregaContas();
   }
 
   atualizaTitle() {
@@ -79,7 +83,7 @@ export class LancamentoCadastroComponent implements OnInit {
   carregaCategorias() {
     return this.categoriaService.buscaTodos()
       .then( categorias => {
-        this.categorias = categorias.map( ( categoria: any ) => {
+        this.listaCategorias = categorias.map( ( categoria: any ) => {
           return { label: categoria.descricao , value: categoria.id };
         });
       })
@@ -100,17 +104,19 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   gravaLancamento( form: NgForm) {
-    ( this.lancamentoModel.movimento === "RECEITAS" || this.lancamentoModel.movimento === "INVESTIMENTOS" ) ? this.lancamentoModel.tipo = "RECEITA" : this.lancamentoModel.tipo = "DESPESA";
+    this.ajustaTipoLancamento();
     this.lancamentoService.grava(this.lancamentoModel)
       .then( lancamento => {
+       this.contaService.grava(this.contaModel);
        this.messageService.add({severity:"success", summary:"Salvo!", detail:'Lançamento '+lancamento.descricao+' salvo com sucesso.'});
+       this.messageService.add({severity:"success", summary:"Salvo!", detail:'Saldo atualizado!'});
        this.router.navigate(['lancamentos', lancamento.id]);
       })
       .catch(erro => this.errorHendler.handler(erro));
   }
 
   alteraLancamento( form: NgForm ) {
-    ( this.lancamentoModel.movimento === "RECEITAS" || this.lancamentoModel.movimento === "INVESTIMENTOS" ) ? this.lancamentoModel.tipo = "RECEITA" : this.lancamentoModel.tipo = "DESPESA";
+    this.ajustaTipoLancamento();
     this.lancamentoService.altera(this.lancamentoModel)
       .then( lancamento => {
         this.messageService.add({severity:'success', summary:'Alterado!', detail:'Lançamento '+lancamento.descricao+' alterado com sucesso.'});
@@ -118,14 +124,60 @@ export class LancamentoCadastroComponent implements OnInit {
       })
   }
 
-  carregaConta() {
+  carregaContas() {
     return this.contaService.buscaTodos()
       .then( contas => {
-        this.contas = contas.map( (conta: any) => {
-          return { label: conta.descricao, value: conta.id };
+        this.listaContas = contas.map( (conta: any) => {
+          return { label: conta.descricao+" -> Saldo em conta: R$ "+conta.saldo, value: conta.id };
         });
       })
       .catch( erro => this.errorHendler.handler(erro) );
   }
+
+  ajustaTipoLancamento() {
+    ( this.lancamentoModel.movimento === "RECEITAS" || this.lancamentoModel.movimento === "INVESTIMENTOS" ) ? this.lancamentoModel.tipo = "RECEITA" : this.lancamentoModel.tipo = "DESPESA";
+  }
+
+  temSaldo(form: NgForm) {
+    this.ajustaTipoLancamento();
+    if ( this.lancamentoModel.tipo == 'DESPESA' ) {
+      if ( this.contaModel.saldo! < this.lancamentoModel.valor! ) {
+        alert("SALDO NA CONTA INSUFICIENTE !!!!! ");
+        this.valor.reset(0);
+        return this.valor.invalid;
+      } else {
+        alert("saldo: "+(this.contaModel.saldo! - this.lancamentoModel.valor! ));
+        return true;
+      }
+    } else {
+      this.calculaSaldo(this.lancamentoModel.tipo);
+      return true;
+    }
+  }
+
+  carregaSaldo( id: number ) {
+    if ( id != null ) {
+      return this.contaService.buscaId(id)
+          .then( conta => {
+              this.contaModel = conta;
+              this.saldoConta = Number(conta.saldo);
+          })
+          .catch( erro => this.errorHendler.handler(erro) );
+      }
+    return false;
+  }
+
+  calculaSaldo(operacao: string) {
+    if ( operacao == 'RECEITA' ) {
+      this.contaModel.saldo! += this.lancamentoModel.valor!;
+    } else {
+      this.contaModel.saldo! -= this.lancamentoModel.valor!;
+    }
+    this.listaContas.forEach( item => {
+      if ( item.value == this.lancamentoModel.conta.id ) {
+        item.label = this.contaModel.descricao+" -> Saldo em conta: R$ "+this.contaModel.saldo;
+      }
+    });
+  };
 
 }

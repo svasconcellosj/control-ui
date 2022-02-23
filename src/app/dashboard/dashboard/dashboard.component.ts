@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   resumoDespesaMensal = 0;
   resumoReceitaAnual = 0;
   resumoDespesaAnual = 0;
+  saldoMesAtual = 0;
 
   constructor(
     private dashboardService : DashboardService,
@@ -120,6 +121,10 @@ export class DashboardComponent implements OnInit {
           this.resumoDespesaAnual = dados[1].total;
         });
     }
+  }
+
+  getResumo() {
+    this.saldoMesAtual = this.resumoReceitaMensal
   }
 
 }

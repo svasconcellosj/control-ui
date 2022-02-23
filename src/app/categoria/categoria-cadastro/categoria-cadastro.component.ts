@@ -19,8 +19,8 @@ export class CategoriaCadastroComponent implements OnInit {
   categoriaModel = new CategoriaModel();
 
   statusCategoria = [
-    { label: 'Inativo', value: false },
-    { label: 'Ativo', value: true }
+    { label: 'Ativo', value: true },
+    { label: 'Inativo', value: false }
   ];
 
   tipoCategoria = [

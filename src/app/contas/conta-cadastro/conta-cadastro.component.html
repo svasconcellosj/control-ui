@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <form  #contaForm="ngForm" class="formDados" (ngSubmit)="salvaConta(contaForm)" (keyup.enter)="salvaConta(contaForm)" autocomplete="off">
+  <form  #contaForm="ngForm" class="formDados" (ngSubmit)="salvaConta(contaForm)" autocomplete="off">
   <div class="col-12">
     <div class="grid">
       <div class="col-12 md:col-8 p-fluid">
@@ -18,14 +18,14 @@
       <div class="col-12 md:col-4 p-fluid">
         <label>Saldo</label>
         <p-inputNumber mode="currency" currency="BRL" locale="pt-BR" placeholder="0,00" allowNegative=false
-        name="saldo" [(ngModel)]="contaModel.saldo" #saldo="ngModel" [required]="true" pTooltip="Saldo da conta"
+        name="saldo" [(ngModel)]="contaModel.saldo" #saldo="ngModel" pTooltip="Saldo da conta"
           tooltipPosition="top" ></p-inputNumber>
         <app-message [control]="saldo.control" error="required" text="Informe o saldo conta"></app-message>
       </div>
     </div>
     <div class="col-12">
       <button pButton class="btn" type="submit" label="Salvar" [disabled]="!contaForm.valid"></button>
-      <button pButton class="btn" type="button" (click)="novaConta(contaForm)" label="Novo" [disabled]="!contaForm.dirty" label="Novo"></button>
+      <button pButton class="btn" type="button" (click)="novaConta(contaForm)" label="Novo"></button>
       <a pButton routerLink="/contas">Cancela/Volta para Pesquisa</a>
     </div>
   </div>

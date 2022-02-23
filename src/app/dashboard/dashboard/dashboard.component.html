@@ -7,17 +7,17 @@
 
   <div class="grid">
     <div class="col-12 md:col-4">
-      <p-panel header="Lançamentos por tipo - Mensal">
+      <p-panel header="Lançamentos por tipo - Mês {{ dataMensalInicio | date: 'MMMM' }}">
         <p-chart type="doughnut" [data]="dataTipoMensal" ></p-chart>
       </p-panel>
     </div>
     <div class="col-12 md:col-4">
-      <p-panel header="Despesas por categoria - Mensal">
+      <p-panel header="Despesas por categoria - Mês {{ dataMensalInicio | date: 'MMMM' }}">
         <p-chart type="pie" [data]="dataCategoriaMensal"></p-chart>
       </p-panel>
     </div>
     <div class="col-12 md:col-4">
-      <p-panel header="Resumo - Mensal">
+      <p-panel header="Resumo - Mês {{ dataMensalInicio | date: 'MMMM' }}">
         <div class="grid dsbResumo">
           <div class="col-12 p-fluid">
             <span >Receitas mês Atual: R$ <strong [style.color]="'blue'">{{ resumoReceitaMensal | number:'1.2-2'}}</strong></span>
@@ -43,17 +43,17 @@
       </p-panel>
     </div>
     <div class="col-12 md:col-4">
-      <p-panel header="Lançamentos por tipo - Anual">
+      <p-panel header="Lançamentos por tipo - Ano {{dataAnualInicio | date: 'yyyy'}}">
         <p-chart type="doughnut" [data]="dataTipoAnual" ></p-chart>
       </p-panel>
     </div>
     <div class="col-12 md:col-4">
-      <p-panel header="Despesas por categoria - Anual">
+      <p-panel header="Despesas por categoria - Ano {{dataAnualInicio | date: 'yyyy'}}">
         <p-chart type="pie" [data]="dataCategoriaAnual"></p-chart>
       </p-panel>
     </div>
     <div class="col-12 md:col-4">
-      <p-panel header="Resumo - Anual">
+      <p-panel header="Resumo - Ano {{dataAnualInicio | date: 'yyyy'}}">
         <div class="grid dsbResumo">
           <div class="col-12 p-fluid">
             <span>Receitas: R$ <strong [style.color]="'blue'">{{ resumoReceitaAnual | number:'1.2-2'}}</strong></span>
