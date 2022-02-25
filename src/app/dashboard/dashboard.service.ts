@@ -1,5 +1,5 @@
 import { firstValueFrom } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -18,13 +18,37 @@ export class DashboardService {
     this.dashboardUrl = `${environment.apiUrl}/lancamentos`
   }
 
-  lancamentosPorCategoria() : Promise<Array<any>> {
-    return firstValueFrom( this.http.get(`${this.dashboardUrl}/estatisticas/por-categoria`) )
+  lancamentosPorCategoria(dataInicio: string, dataFim: string) : Promise<Array<any>> {
+    let params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFim', dataFim);
+
+    return firstValueFrom( this.http.get(`${this.dashboardUrl}/estatisticas/por-categoria`, { params }) )
       .then( (response: any) => response );
   }
 
-  estatisticaTipoCategoria() : Promise<Array<any>> {
-    return firstValueFrom( this.http.get(`${this.dashboardUrl}/estatisticas/por-tipo`))
-    .then( (response: any) => response );
+  lancamentosPorTipo(dataInicio: string, dataFim: string) : Promise<Array<any>> {
+    let params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFim', dataFim);
+    return firstValueFrom( this.http.get(`${this.dashboardUrl}/estatisticas/por-tipo`, { params }) )
+      .then( (response: any) => response );
   }
+
+  totalLancamentosReceitas(dataInicio: string, dataFim: string) : Promise<Array<any>> {
+    let params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFim', dataFim);
+    return firstValueFrom( this.http.get(`${this.dashboardUrl}/total-receitas`, { params }) )
+      .then( (response: any) => response );
+  }
+
+  totalLancamentosDespesas(dataInicio: string, dataFim: string) : Promise<Array<any>> {
+    let params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFim', dataFim);
+    return firstValueFrom( this.http.get(`${this.dashboardUrl}/total-despesas`, { params }) )
+      .then( (response: any) => response );
+  }
+
 }

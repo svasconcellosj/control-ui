@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 import { LancamentoModel } from './lancamento-model';
 
 export class LancamentoFiltro {
@@ -9,7 +10,7 @@ export class LancamentoFiltro {
   descricao?: string;
 
   pagina: number = 0;
-  itensPorPagina: number = 5;
+  itensPorPagina: number = 10;
 }
 
 @Injectable({
@@ -19,7 +20,9 @@ export class LancamentoService {
 
   private lancamentosUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient
+  ) {
     this.lancamentosUrl = `${environment.apiUrl}/lancamentos`;
   }
 
