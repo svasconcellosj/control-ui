@@ -34,4 +34,21 @@ export class DashboardService {
     return firstValueFrom( this.http.get(`${this.dashboardUrl}/estatisticas/por-tipo`, { params }) )
       .then( (response: any) => response );
   }
+
+  totalLancamentosReceitas(dataInicio: string, dataFim: string) : Promise<Array<any>> {
+    let params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFim', dataFim);
+    return firstValueFrom( this.http.get(`${this.dashboardUrl}/total-receitas`, { params }) )
+      .then( (response: any) => response );
+  }
+
+  totalLancamentosDespesas(dataInicio: string, dataFim: string) : Promise<Array<any>> {
+    let params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFim', dataFim);
+    return firstValueFrom( this.http.get(`${this.dashboardUrl}/total-despesas`, { params }) )
+      .then( (response: any) => response );
+  }
+
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { ContaModel } from 'src/app/contas/conta-model';
+import { ContaService } from 'src/app/contas/conta.service';
 import { ErrorHandlerService } from 'src/app/shared/error-handler.service.ts.service';
 import { LancamentoModel } from '../lancamento-model';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
@@ -18,12 +20,17 @@ export class LancamentoPesquisaComponent implements OnInit {
   lancamentosPesquisa: LancamentoModel[] = [];
   @ViewChild('gridTable') gridTable!: any;
 
+  contaModel = new ContaModel();
+  saldoConta: number = 0;
+
   constructor(
     private lancamentoService: LancamentoService,
     private messageService: MessageService,
     private confirmationservice: ConfirmationService,
     private errorHandler: ErrorHandlerService,
-    private title: Title
+    private title: Title,
+
+    private contaService: ContaService
   ) { }
 
   ngOnInit(): void {
@@ -51,18 +58,31 @@ export class LancamentoPesquisaComponent implements OnInit {
     this.confirmationservice.confirm({
       message: 'Tem certeza que deseja excluir o lançamento <strong>' + lancamento.descricao + '</strong> ?',
       accept: () => {
-          this.excluiLancamento(lancamento);
+        this.excluiLancamento(lancamento);
       }
     });
   }
 
   excluiLancamento(lancamento: any) {
     this.lancamentoService.exclui(lancamento.id)
-      .then( () => {
+    .then( () => {
+        this.atualizaSaldoConta(lancamento.conta.id, lancamento);
+        this.contaService.grava(this.contaModel);
         this.gridTable.reset();
         this.messageService.add({severity:'success', summary:'Excluído!', detail:'Lançamento excluído com sucesso.'});
+        this.messageService.add({severity:"success", summary:"Salvo!", detail:'Saldo atualizado!'});
       })
       .catch((error) => this.errorHandler.handler(error));
+  }
+
+  atualizaSaldoConta(id: number, lancamento: any) {
+      return this.contaService.buscaId(id)
+          .then( conta => {
+            this.contaModel = conta;
+            this.saldoConta = this.contaModel.saldo + lancamento.valor;
+            this.contaModel.saldo = this.saldoConta;
+          } )
+          .catch( erro => this.errorHandler.handler(erro) );
   }
 
 }

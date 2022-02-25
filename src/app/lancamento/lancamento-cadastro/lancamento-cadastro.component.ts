@@ -29,6 +29,8 @@ export class LancamentoCadastroComponent implements OnInit {
   listaCategorias: any[] = []; //lista de categorias
   listaContas: any[] = [];   //lista de contas
   contaModel = new ContaModel();
+  valorLancamentoAnterior: number = 0;
+  valorLancamentoNovo: number = 0;
   saldoConta: number = 0;
   @ViewChild('valor') valor!: any;
   movimentos =  [
@@ -70,11 +72,12 @@ export class LancamentoCadastroComponent implements OnInit {
     return Boolean(this.lancamentoModel.id);
   }
 
-  carregaLancamento( id: number ) {
+  carregaLancamento(id: number) {
     this.lancamentoService.buscaId(id)
       .then( lancamento => {
-        console.log(lancamento);
         this.lancamentoModel = lancamento;
+        this.valorLancamentoAnterior = this.lancamentoModel.valor!;
+        this.carregaSaldoConta(this.lancamentoModel.conta.id!);
         this.atualizaTitle();
       })
       .catch( erro => this.errorHendler.handler(erro));
@@ -92,40 +95,45 @@ export class LancamentoCadastroComponent implements OnInit {
 
   novoLancamento(form: NgForm) {
     form.reset(this.lancamentoModel.tipo);
+    this.carregaContas();
     this.router.navigate(['lancamentos/cadastro']);
   }
 
   salvaLancamento(form: NgForm) {
+    this.ajustaTipoLancamento();
     if ( this.editandoLancamento ) {
       this.alteraLancamento(form);
     } else {
       this.gravaLancamento(form);
     }
+    this.carregaContas();
   }
 
-  gravaLancamento( form: NgForm) {
-    this.ajustaTipoLancamento();
+  gravaLancamento(form: NgForm) {
     this.lancamentoService.grava(this.lancamentoModel)
       .then( lancamento => {
+       this.calculaSaldo(form);
        this.contaService.grava(this.contaModel);
-       this.messageService.add({severity:"success", summary:"Salvo!", detail:'Lançamento '+lancamento.descricao+' salvo com sucesso.'});
+       this.messageService.add({severity:"success", summary:"Salvo!", detail:'Lançamento salvo com sucesso.'});
        this.messageService.add({severity:"success", summary:"Salvo!", detail:'Saldo atualizado!'});
        this.router.navigate(['lancamentos', lancamento.id]);
       })
       .catch(erro => this.errorHendler.handler(erro));
   }
 
-  alteraLancamento( form: NgForm ) {
-    this.ajustaTipoLancamento();
+  alteraLancamento(form: NgForm) {
     this.lancamentoService.altera(this.lancamentoModel)
-      .then( lancamento => {
-        this.messageService.add({severity:'success', summary:'Alterado!', detail:'Lançamento '+lancamento.descricao+' alterado com sucesso.'});
+    .then( lancamento => {
+        this.calculaSaldo(form);
+        this.contaService.grava(this.contaModel);
+        this.messageService.add({severity:'success', summary:'Alterado!', detail:'Lançamento alterado com sucesso.'});
+        this.messageService.add({severity:"success", summary:"Salvo!", detail:'Saldo atualizado!'});
         this.atualizaTitle();
       })
   }
 
   carregaContas() {
-    return this.contaService.buscaTodos()
+    this.contaService.buscaTodos()
       .then( contas => {
         this.listaContas = contas.map( (conta: any) => {
           return { label: conta.descricao+" -> Saldo em conta: R$ "+conta.saldo, value: conta.id };
@@ -145,31 +153,32 @@ export class LancamentoCadastroComponent implements OnInit {
         alert("SALDO NA CONTA INSUFICIENTE !!!!! ");
         this.valor.reset(0);
         return this.valor.invalid;
-      } else {
-        alert("saldo: "+(this.contaModel.saldo! - this.lancamentoModel.valor! ));
-        return true;
       }
-    } else {
-      this.calculaSaldo(this.lancamentoModel.tipo);
-      return true;
     }
+    return true;
   }
 
-  carregaSaldo( id: number ) {
+  carregaSaldoConta(id: number) {
     if ( id != null ) {
       return this.contaService.buscaId(id)
           .then( conta => {
               this.contaModel = conta;
-              this.saldoConta = Number(conta.saldo);
+              this.saldoConta = Number(this.contaModel.saldo);
           })
           .catch( erro => this.errorHendler.handler(erro) );
       }
-    return false;
+    return 0;
   }
 
-  calculaSaldo(operacao: string) {
-    if ( operacao == 'RECEITA' ) {
-      this.contaModel.saldo! += this.lancamentoModel.valor!;
+  calculaSaldo(form: NgForm) {
+    if ( this.lancamentoModel.tipo == 'RECEITA' ) {
+      if ( this.editandoLancamento ) {
+        this.valorLancamentoNovo = this.lancamentoModel.valor! - this.valorLancamentoAnterior;
+      } else {
+        this.valorLancamentoNovo = this.lancamentoModel.valor!;
+      }
+      this.saldoConta += this.valorLancamentoNovo;
+      this.contaModel.saldo! = this.saldoConta;
     } else {
       this.contaModel.saldo! -= this.lancamentoModel.valor!;
     }

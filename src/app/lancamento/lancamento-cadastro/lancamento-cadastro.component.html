@@ -11,7 +11,7 @@
     <div class="grid">
       <div class="col-12 md:col-6 p-fluid">
         <label>Conta</label>
-        <p-dropdown (onBlur)="carregaSaldo(lancamentoModel.conta.id!)" class="dropDown" [options]="listaContas" name="conta" [(ngModel)]="lancamentoModel.conta.id" #conta="ngModel" tooltip="Conta do lançamento"
+        <p-dropdown (onClick)="carregaSaldoConta(lancamentoModel.conta.id!)" class="dropDown" [options]="listaContas" name="conta" [(ngModel)]="lancamentoModel.conta.id" #conta="ngModel" tooltip="Conta do lançamento"
           tooltipPosition="top" placeholder="Selecione..."></p-dropdown>
       </div>
       <div class="col-12 md:col-6 p-fluid">

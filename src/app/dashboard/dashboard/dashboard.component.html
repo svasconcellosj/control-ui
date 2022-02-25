@@ -31,13 +31,7 @@
         </div>
         <div class="grid dsbResumo">
           <div class="col-12 p-fluid">
-            <span>Receitas mês Anterior:</span>
-          </div>
-          <div class="col-12 p-fluid">
-            <span>Despesas mês Anterior:</span>
-          </div>
-          <div class="col-12 p-fluid">
-            <span>Saldo mês Anterior:</span>
+            <span>Saldo Geral: R$ <strong>{{ ( saldoContas ) | number:'1.2-2'}}</strong></span>
           </div>
         </div>
       </p-panel>
@@ -62,7 +56,7 @@
             <span>Despesas: R$ <strong [style.color]="'red'">{{ resumoDespesaAnual | number:'1.2-2'}}</strong></span>
           </div>
           <div class="col-12 p-fluid">
-            <span>Saldo: R$ <strong [style.color]="(resumoReceitaAnual - resumoDespesaAnual) < 0 ? 'red':'blue' ">{{ (resumoReceitaAnual - resumoDespesaAnual ) | number:'1.2-2'}}</strong></span>
+            <span>Saldo Geral: R$ <strong>{{ ( saldoContas ) | number:'1.2-2'}}</strong></span>
           </div>
         </div>
       </p-panel>

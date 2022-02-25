@@ -52,7 +52,7 @@ export class ContaCadastroComponent implements OnInit {
   gravaConta(form: NgForm) {
     this.contaService.grava(this.contaModel)
       .then( conta => {
-        this.messageService.add({severity:'success', summary:'Salvo!', detail:'Conta '+conta.descricao+' salva com sucesso.'});
+        this.messageService.add({severity:'success', summary:'Salvo!', detail:'Conta salva com sucesso.'});
         this.router.navigate(['contas', conta.id ]);
       })
       .catch(erro => this.errorHandler.handler(erro));
@@ -61,7 +61,7 @@ export class ContaCadastroComponent implements OnInit {
   alteraConta(form: NgForm) {
     this.contaService.altera(this.contaModel)
       .then( conta => {
-        this.messageService.add({severity:'success', summary:'Alterada!', detail:'Conta '+conta.descricao+' alterada com sucesso.'});
+        this.messageService.add({severity:'success', summary:'Alterada!', detail:'Conta alterada com sucesso.'});
         this.altualizaTitle(true);
       })
       .catch(erro => this.errorHandler.handler(erro));

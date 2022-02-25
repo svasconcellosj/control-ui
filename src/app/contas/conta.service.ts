@@ -19,7 +19,9 @@ export class ContaService {
 
   private contaUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient
+  ) {
     this.contaUrl = `${environment.apiUrl}/contas`;
   }
 
@@ -58,6 +60,10 @@ export class ContaService {
 
   buscaTodos() : Promise<any> {
     return firstValueFrom( this.http.get<ContaModel>(`${this.contaUrl}/lista`));
+  }
+
+  saldoContas() : Promise<any> {
+    return firstValueFrom( this.http.get<ContaModel>(`${this.contaUrl}/total-saldos`));
   }
 
 }

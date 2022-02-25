@@ -2,6 +2,9 @@ import { DashboardService } from './../dashboard.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
+import { ContaService } from 'src/app/contas/conta.service';
+import { ContaModel } from 'src/app/contas/conta-model';
+import { ErrorHandlerService } from 'src/app/shared/error-handler.service.ts.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,22 +24,29 @@ export class DashboardComponent implements OnInit {
   dataTipoAnual: any;
   dataCategoriaMensal: any;
   dataCategoriaAnual: any;
-  resumoReceitaMensal = 0;
+
+  resumoReceitaMensal: number = 0;
   resumoDespesaMensal = 0;
   resumoReceitaAnual = 0;
   resumoDespesaAnual = 0;
-  saldoMesAtual = 0;
+  saldoMesAtual: number = 0;
+
+  contaModel= new ContaModel();
+  saldoContas = 0;
 
   constructor(
     private dashboardService : DashboardService,
     private title: Title,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private errorHendler: ErrorHandlerService,
+    private contaService: ContaService
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('Dashboard');
-    this.GraficoBarraTipoMensal(true);
-    this.GraficoBarraTipoMensal(false);
+    this.carregaSaldoContas();
+    this.GraficoRoscaTipoMensal(true);
+    this.GraficoRoscaTipoMensal(false);
     this.GraficoPizzaCategoriaMensal(true);
     this.GraficoPizzaCategoriaMensal(false);
   }
@@ -87,7 +97,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  GraficoBarraTipoMensal(isMensal: boolean) {
+  GraficoRoscaTipoMensal(isMensal: boolean) {
     let dataInicio: string;
     let dataFim: string;
     if ( isMensal ) {
@@ -102,8 +112,6 @@ export class DashboardComponent implements OnInit {
               backgroundColor: ['#0000FF','#FF0000']
             }]
           };
-          this.resumoReceitaMensal = dados[0].total;
-          this.resumoDespesaMensal = dados[1].total;
         });
     } else {
       dataInicio = `${this.dataAnualInicio}`;
@@ -111,20 +119,64 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.lancamentosPorTipo(dataInicio, dataFim)
         .then( dados => {
           this.dataTipoAnual = {
-            labels: dados.map( dado => dado.tipo),
+            labels: dados.map( dado => dado.tipo ),
             datasets: [{
-              data: dados.map( dado => dado.total),
+              data: dados.map( dado => dado.total ),
               backgroundColor: ['#0000FF','#FF0000']
             }]
           };
-          this.resumoReceitaAnual = dados[0].total;
-          this.resumoDespesaAnual = dados[1].total;
         });
     }
+    this.totalLancamentosReceitas(isMensal);
+    this.totalLancamentosDespesas(isMensal);
   }
 
   getResumo() {
     this.saldoMesAtual = this.resumoReceitaMensal
+  }
+
+  carregaSaldoContas() {
+    return this.contaService.saldoContas()
+      .then( conta => {
+        this.saldoContas = conta.saldo;
+      })
+      .catch( erro => this.errorHendler.handler(erro) );
+  }
+
+  totalLancamentosReceitas(isMensal: boolean) {
+    let dataInicio: string;
+    let dataFim: string;
+    if ( isMensal ) {
+      dataInicio = `${this.dataMensalInicio}`;
+      dataFim = `${this.dataMensalFim}`;
+      return this.dashboardService.totalLancamentosReceitas(dataInicio, dataFim)
+        .then( (dado :any)=> { this.resumoReceitaMensal = dado.total; })
+        .catch( erro => this.errorHendler.handler(erro) );
+    } else {
+      dataInicio = `${this.dataAnualInicio}`;
+      dataFim = `${this.dataAnualFim}`;
+      return this.dashboardService.totalLancamentosReceitas(dataInicio, dataFim)
+        .then( (dado:any) => { this.resumoReceitaAnual = dado.total; })
+        .catch( erro => this.errorHendler.handler(erro) );
+    }
+  }
+
+  totalLancamentosDespesas(isMensal: boolean) {
+    let dataInicio: string;
+    let dataFim: string;
+    if ( isMensal ) {
+      dataInicio = `${this.dataMensalInicio}`;
+      dataFim = `${this.dataMensalFim}`;
+      return this.dashboardService.totalLancamentosDespesas(dataInicio, dataFim)
+        .then( (dado :any)=> { this.resumoDespesaMensal = dado.total; })
+        .catch( erro => this.errorHendler.handler(erro) );
+    } else {
+      dataInicio = `${this.dataAnualInicio}`;
+      dataFim = `${this.dataAnualFim}`;
+      return this.dashboardService.totalLancamentosDespesas(dataInicio, dataFim)
+        .then( (dado:any) => { this.resumoDespesaAnual = dado.total; })
+        .catch( erro => this.errorHendler.handler(erro) );
+    }
   }
 
 }
