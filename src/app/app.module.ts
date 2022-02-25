@@ -21,6 +21,8 @@ import { ErrorHandlerService } from './shared/error-handler.service.ts.service';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { ContaPesquisaComponent } from './contas/conta-pesquisa/conta-pesquisa.component';
+import { ContaCadastroComponent } from './contas/conta-cadastro/conta-cadastro.component';
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
@@ -35,7 +37,9 @@ registerLocaleData(localePt, 'pt-BR');
     PlantaCadastroComponent,
     LancamentoPesquisaComponent,
     LancamentoCadastroComponent,
-    DashboardComponent
+    DashboardComponent,
+    ContaPesquisaComponent,
+    ContaCadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,7 @@ registerLocaleData(localePt, 'pt-BR');
     PrimengImportsModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'pt-BR'}, /* Autera a região da página para portugues Brasil */
+    { provide: LOCALE_ID, useValue: 'pt-BR'}, /* Altera a região da página para portugues Brasil */
     ErrorHandlerService,
     DatePipe,
     Title

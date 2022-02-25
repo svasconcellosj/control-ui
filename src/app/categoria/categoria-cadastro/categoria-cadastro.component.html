@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <form #categoriaForm="ngForm" class="formDados" (ngSubmit)="salvaCategoria(categoriaForm)" (keyup.enter)="salvaCategoria(categoriaForm)" autocomplete="off">
+  <form #categoriaForm="ngForm" class="formDados" (ngSubmit)="salvaCategoria(categoriaForm)" autocomplete="off">
     <div class="grid">
       <div class="col-12 p-fluid">
         <label>Descrição</label>
@@ -25,12 +25,12 @@
         <label>Status</label>
         <p-dropdown [options]="statusCategoria" placeholder="Selecione..." name="status" [required]="true"
           [(ngModel)]="categoriaModel.status" #status="ngModel"
-          pTooltip="Status da categoria" tooltipPosition="top" ></p-dropdown>
+          pTooltip="Status da categoria" tooltipPosition="top"></p-dropdown>
       </div>
 
       <div class="col-12">
         <button pButton class="btn" type="submit" label="Salvar" [disabled]="!categoriaForm.valid"></button>
-        <button pButton class="btn" type="button" (click)="novaCategoria(categoriaForm)" [disabled]="!categoriaForm.dirty" label="Novo"></button>
+        <button pButton class="btn" type="button" (click)="novaCategoria(categoriaForm)" label="Novo"></button>
         <a pButton routerLink="/categorias">Cancela/Volta para Pesquisa</a>
       </div>
     </div>

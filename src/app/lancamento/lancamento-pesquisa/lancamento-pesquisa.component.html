@@ -19,10 +19,10 @@
     </div>
   </form>
 
-  <div class="gri">
+  <div class="grid">
     <div class="col-12">
       <p-table [value]="lancamentosPesquisa" [paginator]="true" [responsive]="true"
-      [rows]="filtro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros"
+      [rows]="filtro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros"  [loading]="loading"
       (onLazyLoad)="aoMudarPagina($event)" #gridTable>
         <ng-template pTemplate="header">
           <tr>
@@ -39,8 +39,12 @@
             <td class="col-id">{{ lancamento.id }}</td>
             <td class="col-txt">{{ lancamento.descricao }}</td>
             <td class="col-datas">{{ lancamento.dataPagamento | date:'dd/MM/yyyy'}}</td>
-            <td class="col-txt">{{ lancamento.tipo}}</td>
-            <td class="col-valores">{{ lancamento.valor | number:'1.2-2'}}</td>
+            <td class="col-txt">
+              <span [style.color]="lancamento.tipo === 'RECEITA' ? 'blue': 'red'">{{ lancamento.tipo}}</span>
+            </td>
+            <td class="col-valores">
+              <span [style.color]="lancamento.tipo === 'RECEITA' ? 'blue': 'red'">{{ lancamento.valor | number:'1.2-2'}}</span>
+            </td>
             <td class="col-opcoes">
               <a class="btn" [routerLink]="[ '/lancamentos', lancamento.id ]" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" ></a>
               <button (click)="confirmarExclusao(lancamento)" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>

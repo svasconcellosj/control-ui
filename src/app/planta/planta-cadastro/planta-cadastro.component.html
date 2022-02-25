@@ -6,7 +6,7 @@
   </div>
 
 
-  <form class="formDados" #plantaForm="ngForm" (ngSubmit)="salvaPlanta(plantaForm)" (keyup.enter)="salvaPlanta(plantaForm)" autocomplete="off">
+  <form class="formDados" #plantaForm="ngForm" (ngSubmit)="salvaPlanta(plantaForm)" autocomplete="off">
       <div class="grid">
           <div class="col-12 md:col-5 p-fluid">
               <label>Nome</label>
@@ -57,7 +57,7 @@
 
           <div class="col-12">
             <button pButton class="btn" type="submit" label="Salvar" [disabled]="!plantaForm.valid"></button>
-            <button pButton class="btn" type="button" (click)="novaPlanta(plantaForm)" [disabled]="!plantaForm.dirty" label="Novo"></button>
+            <button pButton class="btn" type="button" (click)="novaPlanta(plantaForm)" label="Novo"></button>
             <a pButton routerLink="/plantas">Cancela/Volta para Pesquisa</a>
           </div>
       </div>
