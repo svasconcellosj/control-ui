@@ -10,7 +10,7 @@ import { LancamentoCadastroComponent } from './lancamento/lancamento-cadastro/la
 import { LancamentoPesquisaComponent } from './lancamento/lancamento-pesquisa/lancamento-pesquisa.component';
 import { PlantaCadastroComponent } from './planta/planta-cadastro/planta-cadastro.component';
 import { PlantaPesquisaComponent } from './planta/planta-pesquisa/planta-pesquisa.component';
-import { TransferenciaComponent } from './transferencia/transferencia/transferencia.component';
+import { TransferenciaCadastroComponent } from './transferencia/transferencia-cadastro/transferencia-cadastro.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'categorias/cadastro', component: CategoriaCadastroComponent },
   { path: 'categorias/:id', component: CategoriaCadastroComponent },
 
-  { path: 'transferencias', component: TransferenciaComponent },
+  { path: 'transferencias', component: TransferenciaCadastroComponent },
 
   { path: 'plantas', component: PlantaPesquisaComponent },
   { path: 'plantas/cadastro', component: PlantaCadastroComponent },

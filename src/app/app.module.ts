@@ -18,12 +18,13 @@ import { LancamentoPesquisaComponent } from './lancamento/lancamento-pesquisa/la
 import { LancamentoCadastroComponent } from './lancamento/lancamento-cadastro/lancamento-cadastro.component';
 import { ErrorHandlerService } from './shared/error-handler.service.ts.service';
 
-import { DatePipe, registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { ContaPesquisaComponent } from './contas/conta-pesquisa/conta-pesquisa.component';
 import { ContaCadastroComponent } from './contas/conta-cadastro/conta-cadastro.component';
-import { TransferenciaComponent } from './transferencia/transferencia/transferencia.component';
+import { TransferenciaCadastroComponent } from './transferencia/transferencia-cadastro/transferencia-cadastro.component';
+
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
@@ -41,7 +42,7 @@ registerLocaleData(localePt, 'pt-BR');
     DashboardComponent,
     ContaPesquisaComponent,
     ContaCadastroComponent,
-    TransferenciaComponent
+    TransferenciaCadastroComponent
   ],
   imports: [
     BrowserModule,

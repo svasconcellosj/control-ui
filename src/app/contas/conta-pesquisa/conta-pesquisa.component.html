@@ -22,7 +22,7 @@
     <div class="col-12">
       <p-table [value]="contaPesquisa" [paginator]="true" [responsive]="true"
       [rows]="filtro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros"
-      (onLazyLoad)="aoMudarPagina($event)" #gridTable>
+      (onLazyLoad)="aoMudarPagina($event)" #gridTable  [loading]="loading" >
         <ng-template pTemplate="header">
           <tr>
             <th>ID</th>

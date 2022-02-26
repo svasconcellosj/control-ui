@@ -18,6 +18,7 @@ export class CategoriaPesquisaComponent implements OnInit {
   categoria: any[] = [];
   categoriaModel: CategoriaModel[] = [];
   @ViewChild('gridTabela') gridTabela!: any;
+  loading: boolean = false;
 
   constructor(
     private categoriaService: CategoriaService,
@@ -33,11 +34,13 @@ export class CategoriaPesquisaComponent implements OnInit {
    }
 
   pesquisar(pagina: number = 0): void {
+    this.loading = true;
     this.filtro.pagina = pagina;
     this.categoriaService.pesquisar( this.filtro )
       .then( ( resultado: any ) => {
         this.categoria = resultado.categorias;
         this.totalRegistros = resultado.total;
+        this.loading = false;
       })
       .catch((error) => this.errorHandler.handler(error));
   }
