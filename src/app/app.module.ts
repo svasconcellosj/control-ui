@@ -23,6 +23,7 @@ import localePt from '@angular/common/locales/pt';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { ContaPesquisaComponent } from './contas/conta-pesquisa/conta-pesquisa.component';
 import { ContaCadastroComponent } from './contas/conta-cadastro/conta-cadastro.component';
+import { TransferenciaComponent } from './transferencia/transferencia/transferencia.component';
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
@@ -39,7 +40,8 @@ registerLocaleData(localePt, 'pt-BR');
     LancamentoCadastroComponent,
     DashboardComponent,
     ContaPesquisaComponent,
-    ContaCadastroComponent
+    ContaCadastroComponent,
+    TransferenciaComponent
   ],
   imports: [
     BrowserModule,
