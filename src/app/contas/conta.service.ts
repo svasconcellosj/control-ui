@@ -9,7 +9,7 @@ export class ContaFiltro {
   descricao?: string;
 
   pagina: number = 0;
-  itensPorPagina: number = 5;
+  itensPorPagina: number = 10;
 }
 
 @Injectable({

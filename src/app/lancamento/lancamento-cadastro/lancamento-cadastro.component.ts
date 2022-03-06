@@ -9,6 +9,7 @@ import { ErrorHandlerService } from 'src/app/shared/error-handler.service.ts.ser
 import { LancamentoModel } from '../lancamento-model';
 import { LancamentoService } from '../lancamento.service';
 import { ContaModel } from 'src/app/contas/conta-model';
+import { SubcategoriaService } from 'src/app/categoria/subcategoria/subcategoria.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -34,12 +35,12 @@ export class LancamentoCadastroComponent implements OnInit {
   saldoConta: number = 0;
   @ViewChild('valor') valor!: any;
   movimentos =  [
-    { label: 'RECEITAS', value: 'RECEITAS'},
-    { label: 'INVESTIMENTOS', value: 'INVESTIMENTOS'},
-    { label: 'FIXAS', value: 'FIXAS'},
-    { label: 'VARIÁVEIS', value: 'VARIAVEIS'},
-    { label: 'EXTRAS', value: 'EXTRAS'},
     { label: 'ADICIONAIS', value: 'ADICIONAIS'},
+    { label: 'EXTRAS', value: 'EXTRAS'},
+    { label: 'FIXAS', value: 'FIXAS'},
+    { label: 'INVESTIMENTOS', value: 'INVESTIMENTOS'},
+    { label: 'RECEITAS', value: 'RECEITAS'},
+    { label: 'VARIÁVEIS', value: 'VARIAVEIS'},
   ];
 
   constructor(
@@ -49,6 +50,7 @@ export class LancamentoCadastroComponent implements OnInit {
     private router: Router,
     private routeActive: ActivatedRoute,
     private categoriaService: CategoriaService,
+    private subcategoriaService: SubcategoriaService,
     private title: Title,
     private contaService: ContaService
   ) { }
@@ -83,11 +85,21 @@ export class LancamentoCadastroComponent implements OnInit {
       .catch( erro => this.errorHendler.handler(erro));
   }
 
-  carregaCategorias() {
+  carregaaCategorias() {
     return this.categoriaService.buscaTodos()
       .then( categorias => {
         this.listaCategorias = categorias.map( ( categoria: any ) => {
           return { label: categoria.descricao , value: categoria.id };
+        });
+      })
+      .catch( erro => this.errorHendler.handler(erro) );
+  }
+
+  carregaCategorias() {
+    return this.subcategoriaService.buscaTodos()
+      .then( categorias => {
+        this.listaCategorias = categorias.map( ( categoria: any ) => {
+          return { label: categoria.idCategoria.descricao+" - "+categoria.descricao , value: categoria.id };
         });
       })
       .catch( erro => this.errorHendler.handler(erro) );
@@ -178,15 +190,32 @@ export class LancamentoCadastroComponent implements OnInit {
         this.valorLancamentoNovo = this.lancamentoModel.valor!;
       }
       this.saldoConta += this.valorLancamentoNovo;
-      this.contaModel.saldo! = this.saldoConta;
+      this.contaModel.saldo = this.saldoConta;
     } else {
-      this.contaModel.saldo! -= this.lancamentoModel.valor!;
+      if ( this.editandoLancamento ) {
+        this.valorLancamentoNovo = this.lancamentoModel.valor! - this.valorLancamentoAnterior;
+      } else {
+        this.valorLancamentoNovo = this.lancamentoModel.valor!;
+      }
+      this.saldoConta -= this.valorLancamentoNovo;
+      this.contaModel.saldo = this.saldoConta;
     }
     this.listaContas.forEach( item => {
       if ( item.value == this.lancamentoModel.conta.id ) {
         item.label = this.contaModel.descricao+" -> Saldo em conta: R$ "+this.contaModel.saldo;
       }
     });
-  };
+  }
+
+  atualizaSubcategoria(id: number) {
+    if ( id != null ) {
+      return this.subcategoriaService.buscaId(id)
+        .then( subctg => {
+          this.lancamentoModel.idCategoria.id = subctg.idCategoria.id;
+        })
+        .catch( erro => this.errorHendler.handler(erro) );
+    }
+    return 0;
+  }
 
 }

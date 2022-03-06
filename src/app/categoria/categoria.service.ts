@@ -58,8 +58,7 @@ export class CategoriaService {
   }
 
   buscaTodos(): Promise<any> {
-    return firstValueFrom( this.http.get<CategoriaModel>( `${this.categoriasUrl}` ) )
-    .then( (response: any) => response['content']);
+    return firstValueFrom( this.http.get<CategoriaModel>( `${this.categoriasUrl}/lista` ) );
   }
 
   gerarListagem() {

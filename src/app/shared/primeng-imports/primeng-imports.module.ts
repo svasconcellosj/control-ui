@@ -18,6 +18,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
 
 import {SidebarModule} from 'primeng/sidebar';
 
@@ -40,7 +41,8 @@ import {SidebarModule} from 'primeng/sidebar';
     ChartModule,
     MessagesModule,
     InputSwitchModule,
-    SidebarModule
+    SidebarModule,
+    DialogModule
   ],
   providers: [
     MessageService,
