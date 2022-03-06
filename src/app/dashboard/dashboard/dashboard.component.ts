@@ -13,6 +13,8 @@ import { ErrorHandlerService } from 'src/app/shared/error-handler.service.ts.ser
 })
 export class DashboardComponent implements OnInit {
 
+  private autoAtulizacao: any;
+
   //dataAtual = new Date().toLocaleDateString(); //formato dd/MM/yyyy
   dataAtual = new Date();
   dataMensalInicio = this.datePipe.transform(new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth(), 1), 'yyyy-MM-dd');
@@ -43,7 +45,19 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.autoAtulizacao = setInterval(() => {
+      this.atualizaDadosPagina();
+    },300*1000);
+
     this.title.setTitle('Dashboard');
+    this.atualizaDadosPagina();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.autoAtulizacao);
+  }
+
+  atualizaDadosPagina() {
     this.carregaSaldoContas();
     this.GraficoRoscaTipoMensal(true);
     this.GraficoRoscaTipoMensal(false);

@@ -26,13 +26,67 @@
         <p-dropdown [options]="statusCategoria" placeholder="Selecione..." name="status" [required]="true"
           [(ngModel)]="categoriaModel.status" #status="ngModel"
           pTooltip="Status da categoria" tooltipPosition="top"></p-dropdown>
-      </div>
+        </div>
 
+        <div class="col-12">
+          <button pButton class="btn" type="submit" label="Salvar" [disabled]="!categoriaForm.valid"></button>
+          <button pButton class="btn" type="button" (click)="novaCategoria(categoriaForm)" label="Novo"></button>
+          <a pButton routerLink="/categorias">Cancela/Volta para Pesquisa</a>
+        </div>
+    </div>
+  </form>
+
+  <div class="col-12 p-fluid">
+    <p-panel header="Subcategorias">
+      <div class="grid">
+        <div class="col-3 p-fluid">
+          <button class="p-button-secondary" pButton icon="pi pi-plus" label="Nova Subcategoria" pTooltip="Nova Subcategoria" tooltipPosition="top"
+             (click)="prepararNovoContato()" [disabled]="categoriaForm.invalid"></button>
+        </div>
+        <div class="col-12 p-fluid">
+          <p-table [value]="subCategorias" [loading]="loading" [paginator]="true" [responsive]="true"
+            [rows]="subcategoriaFiltro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros" #gridTabelaSubcategoria
+            (onLazyLoad)="aoMudarPagina($event)" selectionMode="single" >
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="col-id">ID</th>
+                <th >Descrição</th>
+                <th >Opções</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-subCategorias >
+              <tr>
+                <td class="col-id">{{ subCategorias.id }}</td>
+                <td >{{ subCategorias.descricao }}</td>
+                <td class="col-opcoes">
+                  <a class="btn" (click)="editaSubcategoria(subCategorias)" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" ></a>
+                  <button (click)="confirmarExclusao(subCategorias)" pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="3">Nenhuma subcategoria encontrada</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+</div>
+
+<p-dialog header="Cadastro de Subcategorias" [(visible)]="exibindoFormularioSubcategoria" [modal]="true">
+  <form #frmSubcategoria="ngForm" *ngIf="subcategoriaModel" (ngSubmit)="salvaSubcategoria(frmSubcategoria)" >
+    <div class="grid">
+      <div class="col-12 p-fluid">
+        <label>Descrição</label>
+        <input type="text" pInputText name="scDescricao" [(ngModel)]="subcategoriaModel.descricao" #scDescricao="ngModel" required autofocus />
+        <app-message [control]="scDescricao.control" error="required" text="Informe uma descrição"></app-message>
+      </div>
       <div class="col-12">
-        <button pButton class="btn" type="submit" label="Salvar" [disabled]="!categoriaForm.valid"></button>
-        <button pButton class="btn" type="button" (click)="novaCategoria(categoriaForm)" label="Novo"></button>
-        <a pButton routerLink="/categorias">Cancela/Volta para Pesquisa</a>
+        <button pButton class="btn" type="submit" label="Salvar" [disabled]="frmSubcategoria.invalid" ></button>
       </div>
     </div>
   </form>
-</div>
+</p-dialog>

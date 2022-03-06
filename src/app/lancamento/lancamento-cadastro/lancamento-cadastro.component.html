@@ -11,12 +11,12 @@
     <div class="grid">
       <div class="col-12 md:col-6 p-fluid">
         <label>Conta</label>
-        <p-dropdown (onClick)="carregaSaldoConta(lancamentoModel.conta.id!)" class="dropDown" [options]="listaContas" name="conta" [(ngModel)]="lancamentoModel.conta.id" #conta="ngModel" tooltip="Conta do lançamento"
-          tooltipPosition="top" placeholder="Selecione..."></p-dropdown>
+        <p-dropdown (onClick)="carregaSaldoConta(lancamentoModel.conta.id!)" class="dropDown" [options]="listaContas" name="conta" [(ngModel)]="lancamentoModel.conta.id" #conta="ngModel"
+          pTooltip="Conta do lançamento" tooltipPosition="top" placeholder="Selecione..."></p-dropdown>
       </div>
       <div class="col-12 md:col-6 p-fluid">
         <label>Tipo</label>
-        <p-dropdown class="dropDown" [options]="movimentos" name="movimento" [(ngModel)]="lancamentoModel.movimento" #movimento="ngModel" tooltip="Conta do lançamento" tooltipPosition="top"
+        <p-dropdown class="dropDown" [options]="movimentos" name="movimento" [(ngModel)]="lancamentoModel.movimento" #movimento="ngModel" pTooltip="Tipo do lançamento" tooltipPosition="top"
              [itemSize]="10" placeholder="Selecione..."></p-dropdown>
       </div>
       <div class="col-12 p-fluid">
@@ -27,7 +27,7 @@
         <app-message [control]="descricao.control" error="minlength" text="Descrição deve ter no mínimo 5 caracters"></app-message>
       </div>
       <div class="col-12 md:col-4 p-fluid">
-        <label >Data Pagamento</label>
+        <label >Data Pagamento/Vencimento</label>
         <!-- dateFormat="dd/mm/yy" -->
         <p-calendar dateFormat="yy-mm-dd" [inputStyle]="{ width: '100px' }" name="dataPagamento" [(ngModel)]="lancamentoModel.dataPagamento" #dataPagamento="ngModel"
           [required]="true"></p-calendar>
@@ -43,9 +43,9 @@
         <p-dropdown [options]="status" name="statusPagamento" [(ngModel)]="lancamentoModel.statusPagamento" #statusPagamento="ngModel"></p-dropdown>
       </div>
       <div class="col-12 md:col-6 p-fluid">
-        <label >Categoria</label>
-        <p-dropdown [options]="listaCategorias" [filter]="true" placeholder="Selecione..." name="categoria" [required]="true"
-          [(ngModel)]="lancamentoModel.idCategoria.id" #categoria="ngModel"></p-dropdown>
+        <label >Categoria / Subcategoria</label>
+        <p-dropdown (onBlur)="atualizaSubcategoria(lancamentoModel.idSubcategoria.id!)" [options]="listaCategorias" [filter]="true" placeholder="Selecione..." name="categoria" [required]="true"
+          [(ngModel)]="lancamentoModel.idSubcategoria.id" #categoria="ngModel"></p-dropdown>
       </div>
       <div class="col-12 md:col-6 p-fluid">
         <label >Qtd Repetição</label>

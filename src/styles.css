@@ -49,13 +49,16 @@
   font-weight: bold;
 }
 
+.p-datatable .p-datatable-thead > tr > th {
+  text-align: center;
+}
 .p-datatable .p-datatable-tbody > tr > td.col-id {
   width: 60px;
   text-align: right;
 }
 
 .p-datatable .p-datatable-tbody > tr > td.col-opcoes {
-  width: 130px;
+  width: 170px;
   text-align: center;
 }
 

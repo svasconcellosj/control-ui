@@ -16,6 +16,7 @@ export class ContaPesquisaComponent implements OnInit {
   filtro = new ContaFiltro();
   totalRegistros = 0;
   @ViewChild('gridTable') gridTable!: any;
+  loading: boolean = false;
 
   constructor(
     private contaService: ContaService,
@@ -31,11 +32,13 @@ export class ContaPesquisaComponent implements OnInit {
   }
 
   pesquisar(pagina: number = 0) {
+    this.loading = true;
     this.filtro.pagina = pagina;
     this.contaService.pesquisar(this.filtro)
       .then( (resultado: any) => {
         this.contaPesquisa = resultado.contas;
         this.totalRegistros = resultado.total;
+        this.loading = false;
       })
       .catch((error) => this.errorHandler.handler(error));
   }

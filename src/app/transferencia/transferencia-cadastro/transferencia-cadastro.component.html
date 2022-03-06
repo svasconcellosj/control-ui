@@ -1,0 +1,33 @@
+<div class="container containerInterno">
+
+  <div class="grid">
+    <div class="col-12">
+      <h1 class="barTitle">Transferências entre contas</h1>
+    </div>
+  </div>
+
+  <form class="formDados" #transferenciaForm= "ngForm" (ngSubmit)="salvaTransferencia(transferenciaForm)" >
+    <div class="grid">
+      <div class="col-12 sm:col-4 p-fluid">
+        <label>Conta origem</label>
+        <p-dropdown (onClick)="carregaConta('ORIGEM', contaModelOrigem.id! )" class="dropDown" [options]="listaContas" name="contaOrigem" [(ngModel)]="contaModelOrigem.id" #contaOrigem="ngModel"
+        tooltip="Conta Origem" tooltipPosition="top" placeholder="Selecione..." [required]="true"></p-dropdown>
+      </div>
+      <div class="col-12 sm:col-4 p-fluid">
+        <label>Conta destino</label>
+        <p-dropdown (onClick)="carregaConta('DESTINO', contaModelDestino.id! )" class="dropDown" [options]="listaContas" name="contaDestino"  [(ngModel)]="contaModelDestino.id" #contaDestin0="ngModel"
+        tooltip="Conta Destino" tooltipPosition="top" placeholder="Selecione..." [required]="true"></p-dropdown>
+      </div>
+      <div class="col-12 sm:col-4 p-fluid">
+        <label>Valor</label>
+        <p-inputNumber  (onBlur)="temSaldo(transferenciaForm)" mode="currency" currency="BRL" locale="pt-BR" placeholder="0,00" allowNegative=false
+          [required]="true" name="valor" [(ngModel)]="valorTransferencia" #valor="ngModel"></p-inputNumber>
+      </div>
+
+      <div class="col-12">
+        <button pButton class="btn" type="submit" label="Salvar" [disabled]="!transferenciaForm.valid"></button>
+        <button pButton class="btn" type="button" (click)="novaTransferencia(transferenciaForm)" label="Novo"></button>
+      </div>
+    </div>
+  </form>
+</div>

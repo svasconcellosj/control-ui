@@ -19,6 +19,7 @@ export class PlantaPesquisaComponent implements OnInit {
   filtro = new FiltroPlanta();
   totalRegistros = 0;
   @ViewChild('gridTabela') gridTabela!: any;
+  loading: boolean = false;
 
   constructor(
     private plantaService: PlantaService,
@@ -34,11 +35,13 @@ export class PlantaPesquisaComponent implements OnInit {
   }
 
   plantasPesquisar(pagina: number = 0): void {
+    this.loading = true;
     this.filtro.pagina = pagina;
     this.plantaService.pesquisar( this.filtro )
       .then( (resultado: any ) => {
         this.plantasPesquisa = resultado.plantas;
         this.totalRegistros = resultado.total;
+        this.loading = false;
       });
   }
 
